@@ -51,5 +51,6 @@ bool login()
         if (i<strlen(passwordhash))
         {cout<<"密码错误！";return true;}
         cout<<"密码正确，请输入指令：";
+        return false;
     }
 }

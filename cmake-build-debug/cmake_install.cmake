@@ -1,4 +1,4 @@
-# Install script for directory: /mnt/c/Users/faii/CLionProjects/todo_demo
+# Install script for directory: /mnt/c/Users/faii/Documents/GitHub/NIS1336
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/mnt/c/Users/faii/CLionProjects/todo_demo/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/mnt/c/Users/faii/Documents/GitHub/NIS1336/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

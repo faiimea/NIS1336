@@ -25,7 +25,7 @@ string getTime()
 }
 
 
-int main()
+int main(int argc,char **argv)
 {
     user todos;
     string   time = getTime();
@@ -37,7 +37,8 @@ int main()
     //运行模块
     char buf[1024];
     int flags;
-
+    todos.get_task();
+    todos.print_task();
 
     // 设置标准输入为非阻塞模式
     int fd = fileno(stdin);
@@ -51,7 +52,7 @@ int main()
     if(!stopped)    printf("Enter name: ");
     while(!stopped)
     {
-        int waitSeconds = 1;
+        int waitSeconds = 30;
         //这里的30s可以测试一下，我觉得1s就可以了ww
         while(waitSeconds > 0)
         {
@@ -62,10 +63,10 @@ int main()
                 break;
             sleep(1);
         }
-        //分析指令：待完成
-        todos.test();
-        waitSeconds = 1;
-    }
+        //命令读取模块
 
+        waitSeconds = 30;
+    }
+    todos.stock();
     return 0;
 }

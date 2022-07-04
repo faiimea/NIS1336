@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/mnt/c/Users/faii/CLionProjects/todo_demo/login.cpp" "/mnt/c/Users/faii/CLionProjects/todo_demo/cmake-build-debug/CMakeFiles/untitled7.dir/login.cpp.o"
-  "/mnt/c/Users/faii/CLionProjects/todo_demo/main.cpp" "/mnt/c/Users/faii/CLionProjects/todo_demo/cmake-build-debug/CMakeFiles/untitled7.dir/main.cpp.o"
-  "/mnt/c/Users/faii/CLionProjects/todo_demo/tasks.cpp" "/mnt/c/Users/faii/CLionProjects/todo_demo/cmake-build-debug/CMakeFiles/untitled7.dir/tasks.cpp.o"
+  "/mnt/c/Users/faii/Documents/GitHub/NIS1336/login.cpp" "/mnt/c/Users/faii/Documents/GitHub/NIS1336/cmake-build-debug/CMakeFiles/untitled7.dir/login.cpp.o"
+  "/mnt/c/Users/faii/Documents/GitHub/NIS1336/main.cpp" "/mnt/c/Users/faii/Documents/GitHub/NIS1336/cmake-build-debug/CMakeFiles/untitled7.dir/main.cpp.o"
+  "/mnt/c/Users/faii/Documents/GitHub/NIS1336/tasks.cpp" "/mnt/c/Users/faii/Documents/GitHub/NIS1336/cmake-build-debug/CMakeFiles/untitled7.dir/tasks.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
