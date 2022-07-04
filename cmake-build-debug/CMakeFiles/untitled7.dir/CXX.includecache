@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/faii/CLionProjects/todo_demo/login.h
+
+/mnt/c/Users/faii/CLionProjects/todo_demo/main.cpp
+fstream
+-
+iostream
+-
+cstring
+-
+fcntl.h
+-
+unistd.h
+-
+string
+-
+time.h
+-
+tasks.h
+/mnt/c/Users/faii/CLionProjects/todo_demo/tasks.h
+login.h
+/mnt/c/Users/faii/CLionProjects/todo_demo/login.h
+
+/mnt/c/Users/faii/CLionProjects/todo_demo/tasks.h
+queue
+-
+iostream
+-
+unistd.h
+-
+
