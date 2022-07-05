@@ -6,13 +6,13 @@
 #include "login.h"
 #include <cstring>
 using namespace  std;
-bool login()
+bool login(int &num)
 {
     bool stop_flag;
     stop_flag=false;
     string user,password,pass;
     int tmp[20];
-    char name[20],passwordhash[20];
+    char name[20],passwordhash[20],id[10];
     cout<<"请输入用户名：";
     getline(cin,user,'\n');
     ofstream in;
@@ -36,6 +36,8 @@ bool login()
             in<<passwordhash[j];
         }
         in<<'\n';
+        in<<0;
+        num=0;
     }
     else
     {
@@ -51,6 +53,12 @@ bool login()
         if (i<strlen(passwordhash))
         {cout<<"密码错误！";return true;}
         cout<<"密码正确，请输入指令：";
-        return false;
+        fscanf(f,"%s\n",id);
+        num=0;
+        for (int j=0;j<strlen(id);j++)
+        {
+            num=10*num+id[j]-48;
+        }
     }
+    //return false;
 }

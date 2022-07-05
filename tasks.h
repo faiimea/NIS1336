@@ -10,7 +10,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-
 using namespace std;
 
 struct  todo_time
@@ -67,6 +66,7 @@ public:
     int task_id;//用hash算出唯一id
     int type;
     int prio;
+    string type_chinese;
     todo_time task_time;
 public:
     task()
@@ -92,27 +92,29 @@ public:
 class user
 {
 private:
-    char* id;
     int ps;
     int task_num;
     todo_time next_task;//下一个最先到期的任务的时间
     task tasks_group[100] ;
-
+    task taskbytime[100];
 public:
+    int id;
     user()
     {
-        id= nullptr;
+        id= 0;
         ps=0;
         task_num=1;
         get_task();//从文本中获取任务数组（任务数组初始化）
     }
-    int idget_task(char name[100]);
     void insert_task();//增加任务
     void delete_task();//删除任务
-    void print_task();//输出任务信息-可能会有多个函数
+    void print_task_bytime();//输出任务信息-可能会有多个函数
+    void print_task_bytype();
+    void print_task_byprio();
     todo_time remind(todo_time Time);//检查+提醒
     todo_time update();//获取最近任务时间
     void stock();
     void get_task();//从文本文件中获取任务数组
+    void sorttaskbytime();
 };
 #endif //UNTITLED7_TASKS_H

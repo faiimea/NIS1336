@@ -123,6 +123,33 @@ untitled7/fast:
 	$(MAKE) -f CMakeFiles/untitled7.dir/build.make CMakeFiles/untitled7.dir/build
 .PHONY : untitled7/fast
 
+duo.o: duo.cpp.o
+
+.PHONY : duo.o
+
+# target to build an object file
+duo.cpp.o:
+	$(MAKE) -f CMakeFiles/untitled7.dir/build.make CMakeFiles/untitled7.dir/duo.cpp.o
+.PHONY : duo.cpp.o
+
+duo.i: duo.cpp.i
+
+.PHONY : duo.i
+
+# target to preprocess a source file
+duo.cpp.i:
+	$(MAKE) -f CMakeFiles/untitled7.dir/build.make CMakeFiles/untitled7.dir/duo.cpp.i
+.PHONY : duo.cpp.i
+
+duo.s: duo.cpp.s
+
+.PHONY : duo.s
+
+# target to generate assembly for a file
+duo.cpp.s:
+	$(MAKE) -f CMakeFiles/untitled7.dir/build.make CMakeFiles/untitled7.dir/duo.cpp.s
+.PHONY : duo.cpp.s
+
 login.o: login.cpp.o
 
 .PHONY : login.o
@@ -213,6 +240,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... untitled7"
+	@echo "... duo.o"
+	@echo "... duo.i"
+	@echo "... duo.s"
 	@echo "... login.o"
 	@echo "... login.i"
 	@echo "... login.s"

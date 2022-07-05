@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/untitled7.dir/tasks.cpp.o CMakeFiles/untitled7.dir/main.cpp.o CMakeFiles/untitled7.dir/login.cpp.o  -o untitled7 
+/usr/bin/c++  -g   CMakeFiles/untitled7.dir/tasks.cpp.o CMakeFiles/untitled7.dir/main.cpp.o CMakeFiles/untitled7.dir/login.cpp.o CMakeFiles/untitled7.dir/duo.cpp.o  -o untitled7 

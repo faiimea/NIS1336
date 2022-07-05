@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/untitled7.dir/duo.cpp.o"
   "CMakeFiles/untitled7.dir/login.cpp.o"
   "CMakeFiles/untitled7.dir/main.cpp.o"
   "CMakeFiles/untitled7.dir/tasks.cpp.o"

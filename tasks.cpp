@@ -2,7 +2,8 @@
 // Created by faii on 2022/6/30.
 //
 #include "tasks.h"
-
+#include <queue>
+#include <vector>
 
 void user::get_task()
 {
@@ -12,13 +13,21 @@ void user::get_task()
     int i=1;
     while(1)
     {
-        tasks_group[i].task_id=in.get()-48;
+        int a1,a2,a3,a4;
+        a1=in.get()-48,a2=in.get()-48,a3=in.get()-48;
+        tasks_group[i].task_id=100*a1+10*a2+a3;//默认存储时id为三位数，001，002类推
         in.get();
         tasks_group[i].type=in.get()-48;
+        if(tasks_group[i].type==1)
+            tasks_group[i].type_chinese="学习";
+        if(tasks_group[i].type==2)
+            tasks_group[i].type_chinese="娱乐";
+        if(tasks_group[i].type==3)
+            tasks_group[i].type_chinese="生活";
         in.get();
         tasks_group[i].prio=in.get()-48;
         in.get();
-        int a1=in.get()-48,a2=in.get()-48,a3=in.get()-48,a4=in.get()-48;
+        a1=in.get()-48,a2=in.get()-48,a3=in.get()-48,a4=in.get()-48;
         tasks_group[i].task_time.year=a1*1000+a2*100+a3*10+a4;
         in.get();
         a1=in.get()-48,a2=in.get()-48;
@@ -55,16 +64,6 @@ void user::get_task()
     task_num=i;
 }
 
-int user::idget_task(char name[100])
-{
-    int hash;
-    for(int i=0;i<20;++i)
-    {
-        (hash=hash*7+name[i]*233)%21788233;
-    }
-    //这里是个hash，但还没写
-    return hash;
-}
 
 void user::insert_task()
 {
@@ -76,15 +75,60 @@ void user::delete_task()
     //删除对应id的任务:只修改任务数组
 }
 
-void user::print_task()
+void user::print_task_bytime()
 {
     for (int i=1;i<task_num;i++)
     {
-        cout<<tasks_group[i].task_id<<' '<<tasks_group[i].name<<' '<<tasks_group[i].type<<' '<<tasks_group[i].prio<<endl;
-        cout<<tasks_group[i].task_time.year<<'-'<<tasks_group[i].task_time.mon<<'-'<<tasks_group[i].task_time.day
-            <<'-'<<tasks_group[i].task_time.hour<<'-'<<tasks_group[i].task_time.minute<<'-'<<tasks_group[i].task_time.second<<endl;
+        cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
+        cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
+            <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
+            <<' '<<taskbytime[i].name<<endl;
     }
     //输出任务信息;
+}
+
+void user::print_task_byprio()
+{
+    for (int i=1;i<task_num;i++)
+        if (taskbytime[i].prio==3)
+        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
+            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
+                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
+                <<' '<<taskbytime[i].name<<endl;}
+    for (int i=1;i<task_num;i++)
+        if (taskbytime[i].prio==2)
+        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
+            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
+                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
+                <<' '<<taskbytime[i].name<<endl;}
+    for (int i=1;i<task_num;i++)
+        if (taskbytime[i].prio==1)
+        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
+            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
+                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
+                <<' '<<taskbytime[i].name<<endl;}
+}
+
+void user::print_task_bytype()
+{
+    for (int i=1;i<task_num;i++)
+        if (taskbytime[i].type==3)
+        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
+            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
+                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
+                <<' '<<taskbytime[i].name<<endl;}
+    for (int i=1;i<task_num;i++)
+        if (taskbytime[i].type==2)
+        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
+            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
+                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
+                <<' '<<taskbytime[i].name<<endl;}
+    for (int i=1;i<task_num;i++)
+        if (taskbytime[i].type==1)
+        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
+            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
+                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
+                <<' '<<taskbytime[i].name<<endl;}
 }
 
 todo_time user::remind(todo_time Time)
@@ -145,7 +189,14 @@ void user::stock()
         time[18]=(tasks_group[i].task_time.second%10)+'0';
 
         ofs.open("file.txt",ios::app);
-        ofs <<id<<","<< tp<<","<<prio<<","<<time<<","<<name<<endl;
+        if(id<=9)
+            ofs<<"00"<<id<<',';
+        else {
+            if (id >= 10 && id <= 99)
+                ofs << '0' << id << ',';
+            else ofs << id << ',';
+             }
+        ofs<< tp<<","<<prio<<","<<time<<","<<name<<endl;
         ofs.close();
     }
     ofs.close();
@@ -157,3 +208,30 @@ todo_time user::update()
     ;
 }
 
+
+void user::sorttaskbytime()
+{
+    struct cmp
+    {
+        bool operator()(task a,task b)
+        {
+            if (a.task_time.year!=b.task_time.year)
+                return a.task_time.year>b.task_time.year;
+            else if(a.task_time.mon!=b.task_time.mon)
+                return a.task_time.mon>b.task_time.mon;
+            else if(a.task_time.day!=b.task_time.day)
+                return a.task_time.day>b.task_time.day;
+            else if(a.task_time.hour!=b.task_time.hour)
+                return a.task_time.hour>b.task_time.hour;
+            else if(a.task_time.minute!=b.task_time.minute)
+                return a.task_time.minute>b.task_time.minute;
+            else if(a.task_time.second!=b.task_time.second)
+                return a.task_time.second>b.task_time.second;
+        }
+    };
+    priority_queue<task,vector<task>,cmp> pq;
+    for (int i=1;i<=task_num;i++)
+        pq.push(tasks_group[i]);
+    for (int i=1;i<=task_num;i++)
+    {taskbytime[i]=pq.top(); pq.pop();}
+}

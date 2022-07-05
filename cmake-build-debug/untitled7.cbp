@@ -82,6 +82,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/mnt/c/Users/faii/Documents/GitHub/NIS1336/duo.cpp">
+			<Option target="untitled7"/>
+		</Unit>
 		<Unit filename="/mnt/c/Users/faii/Documents/GitHub/NIS1336/login.cpp">
 			<Option target="untitled7"/>
 		</Unit>

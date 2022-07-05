@@ -3,4 +3,4 @@ project(untitled7)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(untitled7 tasks.cpp main.cpp tasks.h login.h login.cpp)
+add_executable(untitled7 tasks.cpp main.cpp tasks.h login.h login.cpp duo.cpp)

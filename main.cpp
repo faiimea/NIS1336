@@ -32,16 +32,22 @@ int main(int argc,char **argv)
     cout << time << endl;
     bool stopped;
     //账户验证模块
-    stopped=login();
-
+    stopped=login(todos.id);
+    //cout<<todos.id;
     //运行模块
     char buf[1024];
     int flags;
     todos.get_task();
-    todos.print_task();
+    todos.sorttaskbytime();
+    todos.print_task_bytime();
+    cout<<endl;
+    todos.print_task_byprio();
+    cout<<endl;
+    todos.print_task_bytype();
+    cout<<endl;
 
     // 设置标准输入为非阻塞模式
-    int fd = fileno(stdin);
+    /*int fd = fileno(stdin);
     flags = fcntl(fd, F_GETFL, 0);
     flags |= O_NONBLOCK;
     fcntl(fd, F_SETFL, flags);
@@ -67,6 +73,6 @@ int main(int argc,char **argv)
 
         waitSeconds = 30;
     }
-    todos.stock();
+    todos.stock();*/
     return 0;
 }
