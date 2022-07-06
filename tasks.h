@@ -22,7 +22,12 @@ struct  todo_time
     int second;
     todo_time()
     {
-        year = mon = day = hour = minute = second = 0;
+        year=2000;
+        mon=1;
+        day=1;
+        hour=1;
+        minute=1;
+        second=1;
     }
 
     //这个是标准格式下的系统时间转换函数
@@ -71,7 +76,7 @@ public:
 public:
     task()
     {
-        name= nullptr;
+        name= "未命名";
         task_id=type=prio=0;
         todo_time tmp;
         task_time=tmp;
@@ -94,7 +99,7 @@ class user
 private:
     int ps;
     int task_num;
-    todo_time next_task;//下一个最先到期的任务的时间
+    task next_task;//下一个最先到期的任务
     task tasks_group[100] ;
     task taskbytime[100];
 public:
@@ -106,15 +111,18 @@ public:
         task_num=1;
         get_task();//从文本中获取任务数组（任务数组初始化）
     }
-    void insert_task();//增加任务
-    void delete_task();//删除任务
+    todo_time getTime();
+    int id_detect(int in_id);
+    void insert_task(task in_task);//增加任务
+    void delete_task(int in_id);//删除任务
     void print_task_bytime();//输出任务信息-可能会有多个函数
     void print_task_bytype();
     void print_task_byprio();
-    todo_time remind(todo_time Time);//检查+提醒
-    todo_time update();//获取最近任务时间
+    void remind();//检查+提醒
+    void update();//获取最近任务时间
     void stock();
     void get_task();//从文本文件中获取任务数组
     void sorttaskbytime();
+    bool time_cmp(todo_time a,todo_time b);
 };
 #endif //UNTITLED7_TASKS_H

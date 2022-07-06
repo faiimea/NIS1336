@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/mnt/c/Users/faii/Documents/GitHub/NIS1336/login.cpp" "/mnt/c/Users/faii/Documents/GitHub/NIS1336/cmake-build-debug/CMakeFiles/untitled7.dir/login.cpp.o"
   "/mnt/c/Users/faii/Documents/GitHub/NIS1336/main.cpp" "/mnt/c/Users/faii/Documents/GitHub/NIS1336/cmake-build-debug/CMakeFiles/untitled7.dir/main.cpp.o"
   "/mnt/c/Users/faii/Documents/GitHub/NIS1336/tasks.cpp" "/mnt/c/Users/faii/Documents/GitHub/NIS1336/cmake-build-debug/CMakeFiles/untitled7.dir/tasks.cpp.o"
+  "/mnt/c/Users/faii/Documents/GitHub/NIS1336/test.cpp" "/mnt/c/Users/faii/Documents/GitHub/NIS1336/cmake-build-debug/CMakeFiles/untitled7.dir/test.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -13,23 +13,19 @@
 #include "login.h"
 using namespace std;
 
-
-
-string getTime()
-{
-    time_t timep;
-    time (&timep);
-    char tmp[64];
-    strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S",localtime(&timep));
-    return tmp;
-}
+//string getTime()
+//{
+//    time_t timep;
+//    time (&timep);
+//    char tmp[64];
+//    strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S",localtime(&timep));
+//    return tmp;
+//}
 
 
 int main(int argc,char **argv)
 {
     user todos;
-    string   time = getTime();
-    cout << time << endl;
     bool stopped;
     //账户验证模块
     stopped=login(todos.id);
@@ -38,13 +34,19 @@ int main(int argc,char **argv)
     char buf[1024];
     int flags;
     todos.get_task();
-    todos.sorttaskbytime();
-    todos.print_task_bytime();
-    cout<<endl;
-    todos.print_task_byprio();
-    cout<<endl;
-    todos.print_task_bytype();
-    cout<<endl;
+    task unti;
+    todos.insert_task(unti);
+    todos.delete_task(67);
+    todos.delete_task(24);
+    todos.stock();
+
+//    todos.sorttaskbytime();
+//    todos.print_task_bytime();
+//    cout<<endl;
+//    todos.print_task_byprio();
+//    cout<<endl;
+//    todos.print_task_bytype();
+//    cout<<endl;
 
     // 设置标准输入为非阻塞模式
     /*int fd = fileno(stdin);

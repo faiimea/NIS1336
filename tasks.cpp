@@ -4,6 +4,52 @@
 #include "tasks.h"
 #include <queue>
 #include <vector>
+//获取系统时间
+string sysTime()
+{
+    time_t timep;
+    time (&timep);
+    char tmp[64];
+    strftime(tmp, sizeof(tmp), "%Y-%m-%d %H:%M:%S",localtime(&timep));
+    return tmp;
+}
+//将系统时间转换为todo_time格式
+todo_time user::getTime()
+{
+    string tmp=sysTime();
+    char time_list[20];
+    strcpy(time_list, tmp.c_str());
+    todo_time a(time_list);
+    return a;
+}
+//时间比较（这个说实话。。。没测试过，只是把下面的东西copy上来，估计要大改）
+bool user::time_cmp(todo_time a,todo_time b)
+{
+        if (a.year!=b.year)
+            return a.year>b.year;
+        else if(a.mon!=b.mon)
+            return a.mon>b.mon;
+        else if(a.day!=b.day)
+            return a.day>b.day;
+        else if(a.hour!=b.hour)
+            return a.hour>b.hour;
+        else if(a.minute!=b.minute)
+            return a.minute>b.minute;
+        else if(a.second!=b.second)
+            return a.second>b.second;
+}
+
+//这个是任务提醒函数
+void user::remind()
+{
+    //周期性检查/提醒;
+    todo_time Time=getTime();
+    if(time_cmp(Time,next_task.task_time))
+    {
+        cout<<next_task.task_id<<"已到期"<<endl;
+        delete_task(next_task.task_id);
+    }
+}
 
 void user::get_task()
 {
@@ -64,19 +110,48 @@ void user::get_task()
     task_num=i;
 }
 
-
-void user::insert_task()
+//在删除的时候要用到，找到这个id的任务
+int user::id_detect(int in_id)
 {
-    //增加任务:只修改任务数组
+    for(int i=1;i<=task_num;++i)
+    {
+        if(tasks_group[i].task_id==in_id)   return i;
+    }
+    return 0;
 }
 
-void user::delete_task()
+//已测试，在数组中添加任务
+void user::insert_task(task in_task)
+{
+    //增加任务:只修改任务数组
+    task_num++;id++;
+    in_task.task_id=id;
+    tasks_group[task_num]=in_task;
+    update();
+}
+
+//已测试，删除任务
+void user::delete_task(int in_id)
 {
     //删除对应id的任务:只修改任务数组
+    int loc=id_detect(in_id);
+    if(loc)
+    {
+        for(int i=loc;i<=task_num;++i)
+            tasks_group[i]=tasks_group[i+1];
+        task_num--;
+    }
+    else
+    {
+        std::cout<<"该任务不存在"<<endl;
+    }
+    update();
 }
 
 void user::print_task_bytime()
 {
+    //打印前整理一遍
+    sorttaskbytime();
     for (int i=1;i<task_num;i++)
     {
         cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
@@ -89,53 +164,51 @@ void user::print_task_bytime()
 
 void user::print_task_byprio()
 {
+    //这里感觉用原始数组好一些，不用重新排序
     for (int i=1;i<task_num;i++)
-        if (taskbytime[i].prio==3)
-        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
-            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
-                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
-                <<' '<<taskbytime[i].name<<endl;}
+        if (tasks_group[i].prio==3)
+        {cout<<"id:"<<tasks_group[i].task_id<<' '<<"类型:"<<tasks_group[i].type_chinese<<' '<<"优先度:"<<tasks_group[i].prio<<endl;
+            cout<<tasks_group[i].task_time.year<<'-'<<tasks_group[i].task_time.mon<<'-'<<tasks_group[i].task_time.day
+                <<'-'<<tasks_group[i].task_time.hour<<'-'<<tasks_group[i].task_time.minute<<'-'<<tasks_group[i].task_time.second
+                <<' '<<tasks_group[i].name<<endl;}
     for (int i=1;i<task_num;i++)
-        if (taskbytime[i].prio==2)
-        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
-            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
-                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
-                <<' '<<taskbytime[i].name<<endl;}
+        if (tasks_group[i].prio==2)
+        {cout<<"id:"<<tasks_group[i].task_id<<' '<<"类型:"<<tasks_group[i].type_chinese<<' '<<"优先度:"<<tasks_group[i].prio<<endl;
+            cout<<tasks_group[i].task_time.year<<'-'<<tasks_group[i].task_time.mon<<'-'<<tasks_group[i].task_time.day
+                <<'-'<<tasks_group[i].task_time.hour<<'-'<<tasks_group[i].task_time.minute<<'-'<<tasks_group[i].task_time.second
+                <<' '<<tasks_group[i].name<<endl;}
     for (int i=1;i<task_num;i++)
-        if (taskbytime[i].prio==1)
-        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
-            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
-                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
-                <<' '<<taskbytime[i].name<<endl;}
+        if (tasks_group[i].prio==1)
+        {cout<<"id:"<<tasks_group[i].task_id<<' '<<"类型:"<<tasks_group[i].type_chinese<<' '<<"优先度:"<<tasks_group[i].prio<<endl;
+            cout<<tasks_group[i].task_time.year<<'-'<<tasks_group[i].task_time.mon<<'-'<<tasks_group[i].task_time.day
+                <<'-'<<tasks_group[i].task_time.hour<<'-'<<tasks_group[i].task_time.minute<<'-'<<tasks_group[i].task_time.second
+                <<' '<<tasks_group[i].name<<endl;}
 }
 
 void user::print_task_bytype()
 {
     for (int i=1;i<task_num;i++)
-        if (taskbytime[i].type==3)
-        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
-            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
-                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
-                <<' '<<taskbytime[i].name<<endl;}
+        if (tasks_group[i].type==3)
+        {cout<<"id:"<<tasks_group[i].task_id<<' '<<"类型:"<<tasks_group[i].type_chinese<<' '<<"优先度:"<<tasks_group[i].prio<<endl;
+            cout<<tasks_group[i].task_time.year<<'-'<<tasks_group[i].task_time.mon<<'-'<<tasks_group[i].task_time.day
+                <<'-'<<tasks_group[i].task_time.hour<<'-'<<tasks_group[i].task_time.minute<<'-'<<tasks_group[i].task_time.second
+                <<' '<<tasks_group[i].name<<endl;}
     for (int i=1;i<task_num;i++)
-        if (taskbytime[i].type==2)
-        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
-            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
-                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
-                <<' '<<taskbytime[i].name<<endl;}
+        if (tasks_group[i].type==2)
+        {cout<<"id:"<<tasks_group[i].task_id<<' '<<"类型:"<<tasks_group[i].type_chinese<<' '<<"优先度:"<<tasks_group[i].prio<<endl;
+            cout<<tasks_group[i].task_time.year<<'-'<<tasks_group[i].task_time.mon<<'-'<<tasks_group[i].task_time.day
+                <<'-'<<tasks_group[i].task_time.hour<<'-'<<tasks_group[i].task_time.minute<<'-'<<tasks_group[i].task_time.second
+                <<' '<<tasks_group[i].name<<endl;}
     for (int i=1;i<task_num;i++)
-        if (taskbytime[i].type==1)
-        {cout<<"id:"<<taskbytime[i].task_id<<' '<<"类型:"<<taskbytime[i].type_chinese<<' '<<"优先度:"<<taskbytime[i].prio<<endl;
-            cout<<taskbytime[i].task_time.year<<'-'<<taskbytime[i].task_time.mon<<'-'<<taskbytime[i].task_time.day
-                <<'-'<<taskbytime[i].task_time.hour<<'-'<<taskbytime[i].task_time.minute<<'-'<<taskbytime[i].task_time.second
-                <<' '<<taskbytime[i].name<<endl;}
+        if (tasks_group[i].type==1)
+        {cout<<"id:"<<tasks_group[i].task_id<<' '<<"类型:"<<tasks_group[i].type_chinese<<' '<<"优先度:"<<tasks_group[i].prio<<endl;
+            cout<<tasks_group[i].task_time.year<<'-'<<tasks_group[i].task_time.mon<<'-'<<tasks_group[i].task_time.day
+                <<'-'<<tasks_group[i].task_time.hour<<'-'<<tasks_group[i].task_time.minute<<'-'<<tasks_group[i].task_time.second
+                <<' '<<tasks_group[i].name<<endl;}
 }
 
-todo_time user::remind(todo_time Time)
-{
-    //周期性检查/提醒;
-}
 
+//存储函数，把数组中的东西存到txt中
 void user::stock()
 {
     fstream file("file.txt", ios::out);//清空txt
@@ -143,7 +216,7 @@ void user::stock()
     //写一个for循环，次数为task_num，写入文本
     ofstream ofs;
     char name[100];
-    char time[20];
+    char time[19];
     int tp;
     int prio;
     int id;
@@ -196,18 +269,22 @@ void user::stock()
                 ofs << '0' << id << ',';
             else ofs << id << ',';
              }
-        ofs<< tp<<","<<prio<<","<<time<<","<<name<<endl;
+        ofs<< tp<<","<<prio<<",";
+        for(int i=0;i<19;++i)
+            ofs<<time[i];
+        ofs<<","<<name<<endl;
         ofs.close();
     }
     ofs.close();
 }
 //输入格式：1 1 2022-07-04-12-11-14 faii
 
-todo_time user::update()
+//找到目前最近的任务
+void user::update()
 {
-    ;
+    sorttaskbytime();
+    next_task=taskbytime[1];
 }
-
 
 void user::sorttaskbytime()
 {

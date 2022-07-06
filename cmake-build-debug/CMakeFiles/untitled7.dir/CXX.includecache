@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/c/Users/faii/Documents/GitHub/NIS1336/login.h
+
+/mnt/c/Users/faii/Documents/GitHub/NIS1336/main.cpp
+fstream
+-
+iostream
+-
+cstring
+-
+fcntl.h
+-
+unistd.h
+-
+string
+-
+time.h
+-
+tasks.h
+/mnt/c/Users/faii/Documents/GitHub/NIS1336/tasks.h
+login.h
+/mnt/c/Users/faii/Documents/GitHub/NIS1336/login.h
+
+/mnt/c/Users/faii/Documents/GitHub/NIS1336/tasks.h
+fstream
+-
+iostream
+-
+stdio.h
+-
+unistd.h
+-
+string.h
+-
+
