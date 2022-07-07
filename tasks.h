@@ -35,7 +35,6 @@ struct  todo_time
     {
         int y,m,d,h,mi,s;
         y=m=d=h=mi=s=0;
-        cout<<endl;
         for(int i=0;i<4;++i)
         {
             y=y*10+time_input[i]-'0';
@@ -72,23 +71,27 @@ public:
     int type;
     int prio;
     string type_chinese;
+    string prio_chinese;
     todo_time task_time;
+    todo_time remind_time;
 public:
     task()
     {
         name= "未命名";
-        task_id=type=prio=0;
+        task_id=type=prio=1;
         todo_time tmp;
         task_time=tmp;
+        remind_time=tmp;
     }
 
-    task(char* a,int b,int c,todo_time d,int e)
+    task(char* a,int b,int c,todo_time d,todo_time e,int f)
     {
         name=a;
         type=b;
         prio=c;
         task_time=d;
-        task_id=e;
+        remind_time=e;
+        task_id=f;
     }
 
 };
@@ -104,13 +107,16 @@ private:
     task taskbytime[100];
 public:
     int id;
+    char order[100];
     user()
     {
         id= 0;
         ps=0;
-        task_num=1;
+        task_num=0;
+        next_task.task_time.year=9999;
         get_task();//从文本中获取任务数组（任务数组初始化）
     }
+    bool load();//需要加载的命令有：增加任务，删除任务，输出任务信息1，2，3，退出程序
     todo_time getTime();
     int id_detect(int in_id);
     void insert_task(task in_task);//增加任务
