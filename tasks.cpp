@@ -22,7 +22,8 @@ todo_time user::getTime()
     todo_time a(time_list);
     return a;
 }
-//时间比较（这个说实话。。。没测试过，只是把下面的东西copy上来，估计要大改）正确的，无需修改
+
+//时间比较
 bool user::time_cmp(todo_time a,todo_time b)
 {
         if (a.year!=b.year)
@@ -153,7 +154,7 @@ bool user::load()
     int order_type=order[0]-'0';
     switch (order_type)
     {
-        case 7:
+        case 0:
         {
             //程序结束运行
             return true;
@@ -235,6 +236,25 @@ bool user::load()
         }
         case 6:
         {
+            return false;
+        }
+        case 7:
+        {
+            cout<<"*******************欢迎使用日程管理系统！***********************"<<endl;
+            cout<<endl;
+            cout<<"任务属性优先级从低到高为1，2，3；任务类型按类型学习，娱乐，生活分别为1，2，3"<<endl;
+            cout<<endl;
+            cout<<"****************输入数字指令进入相应软件功能：******************"<<endl;
+            cout<<"0.退出               输入格式：0      退出并保存"<<endl;
+            cout<<"1.添加任务            输入格式：1--类型-优先度-开始时间-提醒时间-任务名称"<<endl;
+            cout<<"****例如：1--2 3 2022-07-07-14-30-00 2022-07-07-14-25-00-name（系统将自动为您生成对应id）"<<endl;
+            cout<<"2.删除任务            输入格式：2--任务ID    例如：2--006（ID以3位数形式输入）"<<endl;
+            cout<<"3.按时间打印任务       输入格式：3      将按输入的提醒时间从早到晚打印任务"<<endl;
+            cout<<"4.按优先级打印任务      输入格式：4     将按优先级从高到低打印任务"<<endl;
+            cout<<"5.按类型打印任务       输入格式：5      将按类型生活，娱乐，学习依次打印任务"<<endl;
+            cout<<"6.取消               输入格式：6      取消输入内容，重新进入命令行"<<endl;
+            cout<<"7.帮助               输入格式：7      输出程序帮助文档"<<endl;
+            cout<<endl<<endl<<endl;
             return false;
         }
     }
@@ -460,7 +480,6 @@ void user::stock()
 
     }
     ofs.close();
-    cout<<task_num<<endl;
     if(task_num==0)
     {
         remove("file.txt");

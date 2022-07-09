@@ -37,7 +37,7 @@ int main(int argc,char **argv)
     if(!stopped)    printf("请输入命令: ");
     while(!stopped)
     {
-        int waitSeconds = 2;
+        int waitSeconds = 10;
         //记得把这里改回来10
         while(waitSeconds > 0)
         {
@@ -57,7 +57,7 @@ int main(int argc,char **argv)
         stopped=todos.load();
         todos.remind();
         waitSeconds = 10;
-        if(al_run)
+        if(al_run&&!stopped)
         {
             printf("请输入命令: ");
             memset(todos.order,'\0',sizeof(todos.order));
@@ -65,5 +65,8 @@ int main(int argc,char **argv)
         }
     }
     todos.stock();
+    cout<<endl;
+    cout<<"已成功保存"<<endl;
+    cout<<"退出程序"<<endl;
     return 0;
 }
