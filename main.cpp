@@ -15,11 +15,17 @@ using namespace std;
 
 int main(int argc,char **argv)
 {
+    users admin;
     user todos;
     bool al_run;al_run=false;
     bool stopped=false;
     //账户验证模块
-    stopped=login(todos.id);
+    admin.user_get();
+    stopped=admin.user_load();
+    //stopped=admin.login();
+    todos.no=admin.mem_no;
+    todos.id=admin.todo_mems[admin.mem_no].mem_id;
+    todos.filename_get();
     //运行模块
     char buf[1024];
     int flags;
@@ -64,7 +70,8 @@ int main(int argc,char **argv)
             al_run=false;
         }
     }
-    todos.stock();
+    admin.todo_mems[admin.mem_no].mem_id=todos.stock();
+    admin.user_stock();
     cout<<endl;
     cout<<"已成功保存"<<endl;
     cout<<"退出程序"<<endl;

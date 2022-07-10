@@ -39,6 +39,16 @@ bool user::time_cmp(todo_time a,todo_time b)
         else if(a.second!=b.second)
             return a.second>b.second;
 }
+void user::filename_get()
+{
+  file_name[0]='f';
+  file_name[1]=no+'0';
+  file_name[2]='.';
+  file_name[3]='t';
+  file_name[4]='x';
+  file_name[5]='t';
+  file_name[6]='\0';
+}
 
 //这个是任务提醒函数
 void user::remind()
@@ -55,12 +65,11 @@ void user::remind()
         delete_task(next_task.task_id);
     }
 }
-
 void user::get_task()
 {
     //从文本内容中导入任务到任务数组;
     ifstream in;
-    in.open("file.txt");
+    in.open(file_name);
     int i=1;
     while(1)
     {
@@ -373,9 +382,9 @@ void user::print_task_bytype()
 
 
 //存储函数，把数组中的东西存到txt中
-void user::stock()
+int user::stock()
 {
-    fstream file("file.txt", ios::out);//清空txt
+    fstream file(file_name, ios::out);//清空txt
     //在程序退出的时候，清空任务txt，然后将任务数组导入txt；
     //写一个for循环，次数为task_num，写入文本
     ofstream ofs;
@@ -459,7 +468,7 @@ void user::stock()
         else remindtime[17]='0';
         remindtime[18]=(tasks_group[i].remind_time.second%10)+'0';
 
-        ofs.open("file.txt",ios::app);
+        ofs.open(file_name,ios::app);
         if(id_<=9)
             ofs<<"00"<<id_<<',';
         else {
@@ -482,19 +491,20 @@ void user::stock()
     ofs.close();
     if(task_num==0)
     {
-        remove("file.txt");
+        remove(file_name);
         cout << strerror(errno);
     }
-    ofstream aa("USERS.txt",std::ios::in);
-    aa.seekp(-3,ios::end);
-    if(id<=9)
-        aa<<"00"<<id;
-    else {
-        if (id >= 10 && id <= 99)
-            aa << '0' << id;
-        else aa << id;
-    }
-    aa.close();
+    return id;
+//    ofstream aa("USERS.txt",std::ios::in);
+//    aa.seekp(-3,ios::end);
+//    if(id<=9)
+//        aa<<"00"<<id;
+//    else {
+//        if (id >= 10 && id <= 99)
+//            aa << '0' << id;
+//        else aa << id;
+//    }
+//    aa.close();
 }
 //输入格式：1--2 3 2022-07-07-14-30-00 2022-07-07-14-25-00 wow
 

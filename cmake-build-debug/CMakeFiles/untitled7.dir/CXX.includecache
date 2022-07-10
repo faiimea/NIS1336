@@ -7,6 +7,12 @@
 #IncludeRegexTransform: 
 
 /mnt/c/Users/faii/Documents/GitHub/NIS1336/login.h
+iostream
+-
+fstream
+-
+cstring
+-
 
 /mnt/c/Users/faii/Documents/GitHub/NIS1336/main.cpp
 fstream
@@ -28,6 +34,14 @@ tasks.h
 login.h
 /mnt/c/Users/faii/Documents/GitHub/NIS1336/login.h
 
+/mnt/c/Users/faii/Documents/GitHub/NIS1336/tasks.cpp
+tasks.h
+/mnt/c/Users/faii/Documents/GitHub/NIS1336/tasks.h
+queue
+-
+vector
+-
+
 /mnt/c/Users/faii/Documents/GitHub/NIS1336/tasks.h
 fstream
 -
@@ -39,4 +53,10 @@ unistd.h
 -
 string.h
 -
+
+/mnt/c/Users/faii/Documents/GitHub/NIS1336/test.cpp
+iostream
+-
+tasks.h
+/mnt/c/Users/faii/Documents/GitHub/NIS1336/tasks.h
 

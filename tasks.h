@@ -67,7 +67,7 @@ class task
 {
 public:
     char* name;
-    int task_id;//用hash算出唯一id
+    int task_id;
     int type;
     int prio;
     string type_chinese;
@@ -106,6 +106,8 @@ private:
     task tasks_group[100] ;
     task taskbytime[100];
 public:
+    int no;
+    char file_name[10];
     int id;
     char order[100];
     user()
@@ -116,6 +118,7 @@ public:
         next_task.task_time.year=9999;
         get_task();//从文本中获取任务数组（任务数组初始化）
     }
+    void filename_get();
     bool load();//需要加载的命令有：增加任务，删除任务，输出任务信息1，2，3，退出程序
     todo_time getTime();
     int id_detect(int in_id);
@@ -126,7 +129,7 @@ public:
     void print_task_byprio();
     void remind();//检查+提醒
     void update();//获取最近任务时间
-    void stock();
+    int stock();
     void get_task();//从文本文件中获取任务数组
     void sorttaskbytime();
     bool time_cmp(todo_time a,todo_time b);
