@@ -39,6 +39,8 @@ bool user::time_cmp(todo_time a,todo_time b)
         else if(a.second!=b.second)
             return a.second>b.second;
 }
+
+//选择该用户对应的txt
 void user::filename_get()
 {
   file_name[0]='f';
@@ -308,6 +310,8 @@ void user::delete_task(int in_id)
     update();
 }
 
+//三类打印函数
+
 void user::print_task_bytime()
 {
     //打印前整理一遍
@@ -495,18 +499,7 @@ int user::stock()
         cout << strerror(errno);
     }
     return id;
-//    ofstream aa("USERS.txt",std::ios::in);
-//    aa.seekp(-3,ios::end);
-//    if(id<=9)
-//        aa<<"00"<<id;
-//    else {
-//        if (id >= 10 && id <= 99)
-//            aa << '0' << id;
-//        else aa << id;
-//    }
-//    aa.close();
 }
-//输入格式：1--2 3 2022-07-07-14-30-00 2022-07-07-14-25-00 wow
 
 //找到目前最近的任务
 void user::update()
@@ -517,6 +510,7 @@ void user::update()
     else next_task.remind_time.year=9999;
 }
 
+//任务排序函数
 void user::sorttaskbytime()
 {
     struct cmp

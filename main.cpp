@@ -13,30 +13,47 @@
 #include "login.h"
 using namespace std;
 
+//主函数
 int main(int argc,char **argv)
 {
+
+    //————————————————————————————————————————账号登录阶段————————————————————————————————————————
+
+    //初始化账号管理模块
     users admin;
+
+    //初始化任务管理模块
     user todos;
     bool al_run;al_run=false;
     bool stopped=false;
-    //账户验证模块
+
+    //获取程序已储存的用户信息
     admin.user_get();
+
+    //登录注册阶段
     stopped=admin.user_load();
-    //stopped=admin.login();
     todos.no=admin.mem_no;
     todos.id=admin.todo_mems[admin.mem_no].mem_id;
+    if(stopped)
+    {
+        cout<<"程序退出"<<endl;
+        return 0;
+    }
+
+    //从文本文件中获取该用户的任务信息
     todos.filename_get();
-    //运行模块
-    char buf[1024];
-    int flags;
     todos.get_task();
     todos.update();
-    // 设置标准输入为非阻塞模式
+
+    //————————————————————————————————————————程序运行阶段————————————————————————————————————————
+
+    // 非阻塞输入设置
+    char buf[1024];
+    int flags;
     int fd = fileno(stdin);
     flags = fcntl(fd, F_GETFL, 0);
     flags |= O_NONBLOCK;
     fcntl(fd, F_SETFL, flags);
-
     memset(buf,0, sizeof(buf));
 
     // 循环等待输入
@@ -44,7 +61,6 @@ int main(int argc,char **argv)
     while(!stopped)
     {
         int waitSeconds = 10;
-        //记得把这里改回来10
         while(waitSeconds > 0)
         {
             --waitSeconds;
@@ -61,6 +77,7 @@ int main(int argc,char **argv)
         }
         //命令读取模块
         stopped=todos.load();
+        //任务检测
         todos.remind();
         waitSeconds = 10;
         if(al_run&&!stopped)
@@ -70,6 +87,8 @@ int main(int argc,char **argv)
             al_run=false;
         }
     }
+
+    //将程序修改的内容重新存储回本地文件
     admin.todo_mems[admin.mem_no].mem_id=todos.stock();
     admin.user_stock();
     cout<<endl;

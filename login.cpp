@@ -5,6 +5,7 @@
 #include "login.h"
 using namespace  std;
 
+//将本地的用户信息导入程序
 void users::user_get()
 {
     ifstream in;
@@ -44,8 +45,7 @@ void users::user_get()
     }
 }
 
-
-
+//账号管理，登录，注册，退出
 bool users::user_load()
 {
     string in_order;
@@ -61,7 +61,7 @@ bool users::user_load()
         else if(ord==1)
         {
             tmp = reg();
-            if (tmp == -1) return true;
+            if (tmp == -1) {cout<<"该用户已存在"<<endl;return true;}
             else
             {
                 mem_no=tmp;
@@ -79,7 +79,7 @@ bool users::user_load()
         else if(ord==1)
         {
             tmp = reg();
-            if (tmp == -1) return true;
+            if (tmp == -1) {cout<<"该用户已存在"<<endl;return true;}
             else
             {
                 mem_no=tmp;
@@ -101,14 +101,29 @@ bool users::user_load()
     }
 }
 
+//注册新账号
 int users::reg()
 {
-    user_num++;
+    //user_num++;
     string user,password,pass;
+    string tmp_name;
     int tmp[20];
     char name[20],id[10];
-    cout<<"请输入用户名：";
-    getline(cin,todo_mems[user_num].mem_name,'\n');
+    cout<<"请输入用户名："<<endl;
+    getline(cin,tmp_name,'\n');
+    int x;
+    bool repeat=false;
+    for(x=1;x<=user_num;++x)
+    {
+        if(todo_mems[x].mem_name.compare(tmp_name)==0)
+        {repeat=true;break;}
+    }
+    if(repeat)
+    {
+        return -1;
+    }
+    user_num++;
+    todo_mems[user_num].mem_name=tmp_name;
     cout<<"新用户已创建，请输入密码：";
     getline(cin,password,'\n');
     int i;
@@ -126,12 +141,13 @@ int users::reg()
     return user_num;
 }
 
+//登录函数
 int users::login()
 {
     string user,password,pass;
     int tmp[20];
     char name[20],id[10];
-    cout<<"请输入用户名：";
+    cout<<"请输入用户名："<<endl;
     getline(cin,user,'\n');
     //user+='\0';
     int i;
@@ -162,6 +178,7 @@ int users::login()
     return i;
 }
 
+//输出帮助文档
 void users::user_help()
 {
     cout<<"*******************欢迎使用日程管理系统！***********************"<<endl;
@@ -181,6 +198,7 @@ void users::user_help()
     cout<<endl<<endl<<endl;
 }
 
+//将更改的用户信息存储于本地
 void users::user_stock()
 {
     fstream file("USERS.txt", ios::out);
