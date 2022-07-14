@@ -57,7 +57,6 @@ void user::remind()
 {
     //周期性检查/提醒;
     todo_time Time=getTime();
-    bool flag=0;
     while(time_cmp(Time,next_task.remind_time))
     {
         cout<<"任务ID:"<<next_task.task_id<<' '<<"任务名称:"<<next_task.name<<' ';
